@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.connectStatus = new System.Windows.Forms.Button();
             this.disconnectPlc = new System.Windows.Forms.Button();
             this.connectPlc = new System.Windows.Forms.Button();
             this.plcSlot = new System.Windows.Forms.TextBox();
@@ -64,7 +63,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.connectStatus);
             this.groupBox1.Controls.Add(this.disconnectPlc);
             this.groupBox1.Controls.Add(this.connectPlc);
             this.groupBox1.Controls.Add(this.plcSlot);
@@ -79,14 +77,6 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "创建PLC连接";
-            // 
-            // connectStatus
-            // 
-            this.connectStatus.Location = new System.Drawing.Point(271, 71);
-            this.connectStatus.Name = "connectStatus";
-            this.connectStatus.Size = new System.Drawing.Size(58, 23);
-            this.connectStatus.TabIndex = 9;
-            this.connectStatus.UseVisualStyleBackColor = true;
             // 
             // disconnectPlc
             // 
@@ -365,7 +355,6 @@
         private System.Windows.Forms.TextBox recordExcelCycle;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ListBox listInfo;
-        private System.Windows.Forms.Button connectStatus;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button createExcelFile;
