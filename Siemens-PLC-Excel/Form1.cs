@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Sharp7;
 
+
 namespace Siemens_PLC_Excel
 {
     public partial class Form1 : Form
@@ -211,6 +212,77 @@ namespace Siemens_PLC_Excel
             listInfo.Items.Add("数据采集结束");
             finishRecordExcel.Enabled = false;
             startRecordExcel.Enabled = true;
+        }
+
+        public static void DTToExcel(string Path, System.Data.DataTable dt)
+        {
+            string strCon = string.Empty;
+            FileInfo file = new FileInfo(Path);
+            string extension = file.Extension;
+            switch (extension)
+            {
+                case ".xls":
+                    strCon = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Path + ";Extended Properties=Excel 8.0;";
+                    //strCon = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Path + ";Extended Properties='Excel 8.0;HDR=Yes;IMEX=0;'";
+                    //strCon = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Path + ";Extended Properties='Excel 8.0;HDR=Yes;IMEX=2;'";
+                    break;
+                case ".xlsx":
+                    //strCon = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Path + ";Extended Properties=Excel 12.0;";
+                    //strCon = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Path + ";Extended Properties='Excel 12.0;HDR=Yes;IMEX=2;'";    //出现错误了
+                    strCon = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Path + ";Extended Properties='Excel 12.0;HDR=Yes;IMEX=0;'";
+                    break;
+                default:
+                    strCon = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Path + ";Extended Properties='Excel 8.0;HDR=Yes;IMEX=0;'";
+                    break;
+            }
+            try
+            {
+                using (System.Data.OleDb.OleDbConnection con = new System.Data.OleDb.OleDbConnection(strCon))
+                {
+                    con.Open();
+                    StringBuilder strSQL = new StringBuilder();
+                    System.Data.OleDb.OleDbCommand cmd;
+                    try
+                    {
+                        cmd = new System.Data.OleDb.OleDbCommand(string.Format("drop table {0}", dt.TableName), con);    //覆盖文件时可能会出现Table 'Sheet1' already exists.所以这里先删除了一下
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch { }
+                    //创建表格字段
+                    strSQL.Append("CREATE TABLE ").Append("[" + dt.TableName + "]");
+                    strSQL.Append("(");
+                    for (int i = 0; i < dt.Columns.Count; i++)
+                    {
+                        strSQL.Append("[" + dt.Columns[i].ColumnName + "] text,");
+                    }
+                    strSQL = strSQL.Remove(strSQL.Length - 1, 1);
+                    strSQL.Append(")");
+
+                    cmd = new System.Data.OleDb.OleDbCommand(strSQL.ToString(), con);
+                    cmd.ExecuteNonQuery();
+                    //添加数据
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        strSQL.Clear();
+                        StringBuilder strvalue = new StringBuilder();
+                        for (int j = 0; j < dt.Columns.Count; j++)
+                        {
+                            strvalue.Append("'" + dt.Rows[i][j].ToString() + "'");
+                            if (j != dt.Columns.Count - 1)
+                            {
+                                strvalue.Append(",");
+                            }
+                            else
+                            {
+                            }
+                        }
+                        cmd.CommandText = strSQL.Append(" insert into [" + dt.TableName + "] values (").Append(strvalue).Append(")").ToString();
+                        cmd.ExecuteNonQuery();
+                    }
+                    con.Close();
+                }
+            }
+            catch { }
         }
 
         private void saveToExcel_Click(object sender, EventArgs e)
