@@ -30,34 +30,37 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.connectStatus = new System.Windows.Forms.Button();
+            this.disconnectPlc = new System.Windows.Forms.Button();
+            this.connectPlc = new System.Windows.Forms.Button();
+            this.plcSlot = new System.Windows.Forms.TextBox();
+            this.plcRack = new System.Windows.Forms.TextBox();
+            this.plcIp = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dbwVaule = new System.Windows.Forms.TextBox();
+            this.finishRecordExcel = new System.Windows.Forms.Button();
+            this.startRecordExcel = new System.Windows.Forms.Button();
+            this.dbwNum = new System.Windows.Forms.TextBox();
+            this.dbNum = new System.Windows.Forms.TextBox();
+            this.recordExcelCycle = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.采样周期 = new System.Windows.Forms.Label();
-            this.plcIp = new System.Windows.Forms.TextBox();
-            this.plcRack = new System.Windows.Forms.TextBox();
-            this.plcSlot = new System.Windows.Forms.TextBox();
-            this.connectPlc = new System.Windows.Forms.Button();
-            this.disconnectPlc = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
-            this.recordExcelCycle = new System.Windows.Forms.TextBox();
-            this.dbNum = new System.Windows.Forms.TextBox();
-            this.dbwNum = new System.Windows.Forms.TextBox();
-            this.startRecordExcel = new System.Windows.Forms.Button();
-            this.finishRecordExcel = new System.Windows.Forms.Button();
-            this.dbwVaule = new System.Windows.Forms.TextBox();
-            this.saveToExcel = new System.Windows.Forms.Button();
             this.listInfo = new System.Windows.Forms.ListBox();
-            this.connectStatus = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -78,14 +81,63 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "创建PLC连接";
             // 
-            // label1
+            // connectStatus
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 35);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 12);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "IP地址";
+            this.connectStatus.Location = new System.Drawing.Point(271, 71);
+            this.connectStatus.Name = "connectStatus";
+            this.connectStatus.Size = new System.Drawing.Size(58, 23);
+            this.connectStatus.TabIndex = 9;
+            this.connectStatus.UseVisualStyleBackColor = true;
+            // 
+            // disconnectPlc
+            // 
+            this.disconnectPlc.Location = new System.Drawing.Point(89, 71);
+            this.disconnectPlc.Name = "disconnectPlc";
+            this.disconnectPlc.Size = new System.Drawing.Size(58, 23);
+            this.disconnectPlc.TabIndex = 8;
+            this.disconnectPlc.Text = "断开";
+            this.disconnectPlc.UseVisualStyleBackColor = true;
+            this.disconnectPlc.Click += new System.EventHandler(this.disconnectPlc_Click);
+            // 
+            // connectPlc
+            // 
+            this.connectPlc.Location = new System.Drawing.Point(8, 71);
+            this.connectPlc.Name = "connectPlc";
+            this.connectPlc.Size = new System.Drawing.Size(58, 23);
+            this.connectPlc.TabIndex = 7;
+            this.connectPlc.Text = "连接";
+            this.connectPlc.UseVisualStyleBackColor = true;
+            this.connectPlc.Click += new System.EventHandler(this.connectPLC_Click);
+            // 
+            // plcSlot
+            // 
+            this.plcSlot.Location = new System.Drawing.Point(297, 31);
+            this.plcSlot.Name = "plcSlot";
+            this.plcSlot.Size = new System.Drawing.Size(32, 21);
+            this.plcSlot.TabIndex = 6;
+            // 
+            // plcRack
+            // 
+            this.plcRack.Location = new System.Drawing.Point(224, 31);
+            this.plcRack.Name = "plcRack";
+            this.plcRack.Size = new System.Drawing.Size(32, 21);
+            this.plcRack.TabIndex = 5;
+            // 
+            // plcIp
+            // 
+            this.plcIp.Location = new System.Drawing.Point(53, 31);
+            this.plcIp.Name = "plcIp";
+            this.plcIp.Size = new System.Drawing.Size(118, 21);
+            this.plcIp.TabIndex = 4;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(262, 35);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(29, 12);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "插槽";
             // 
             // label2
             // 
@@ -96,14 +148,14 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "机架号";
             // 
-            // label3
+            // label1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(262, 35);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 12);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "插槽";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 35);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 12);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "IP地址";
             // 
             // label4
             // 
@@ -134,7 +186,6 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.saveToExcel);
             this.groupBox2.Controls.Add(this.dbwVaule);
             this.groupBox2.Controls.Add(this.finishRecordExcel);
             this.groupBox2.Controls.Add(this.startRecordExcel);
@@ -151,6 +202,64 @@
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "创建PLC连接";
+            // 
+            // dbwVaule
+            // 
+            this.dbwVaule.Location = new System.Drawing.Point(304, 9);
+            this.dbwVaule.Name = "dbwVaule";
+            this.dbwVaule.ReadOnly = true;
+            this.dbwVaule.Size = new System.Drawing.Size(38, 21);
+            this.dbwVaule.TabIndex = 13;
+            // 
+            // finishRecordExcel
+            // 
+            this.finishRecordExcel.Location = new System.Drawing.Point(89, 71);
+            this.finishRecordExcel.Name = "finishRecordExcel";
+            this.finishRecordExcel.Size = new System.Drawing.Size(58, 23);
+            this.finishRecordExcel.TabIndex = 12;
+            this.finishRecordExcel.Text = "结束";
+            this.finishRecordExcel.UseVisualStyleBackColor = true;
+            this.finishRecordExcel.Click += new System.EventHandler(this.finishRecordExcel_Click);
+            // 
+            // startRecordExcel
+            // 
+            this.startRecordExcel.Location = new System.Drawing.Point(8, 71);
+            this.startRecordExcel.Name = "startRecordExcel";
+            this.startRecordExcel.Size = new System.Drawing.Size(58, 23);
+            this.startRecordExcel.TabIndex = 9;
+            this.startRecordExcel.Text = "开始";
+            this.startRecordExcel.UseVisualStyleBackColor = true;
+            this.startRecordExcel.Click += new System.EventHandler(this.startRecordExcel_Click);
+            // 
+            // dbwNum
+            // 
+            this.dbwNum.Location = new System.Drawing.Point(291, 31);
+            this.dbwNum.Name = "dbwNum";
+            this.dbwNum.Size = new System.Drawing.Size(38, 21);
+            this.dbwNum.TabIndex = 11;
+            // 
+            // dbNum
+            // 
+            this.dbNum.Location = new System.Drawing.Point(187, 31);
+            this.dbNum.Name = "dbNum";
+            this.dbNum.Size = new System.Drawing.Size(38, 21);
+            this.dbNum.TabIndex = 10;
+            // 
+            // recordExcelCycle
+            // 
+            this.recordExcelCycle.Location = new System.Drawing.Point(69, 31);
+            this.recordExcelCycle.Name = "recordExcelCycle";
+            this.recordExcelCycle.Size = new System.Drawing.Size(38, 21);
+            this.recordExcelCycle.TabIndex = 9;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(152, 35);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(29, 12);
+            this.label9.TabIndex = 4;
+            this.label9.Text = "DB块";
             // 
             // label7
             // 
@@ -179,115 +288,6 @@
             this.采样周期.TabIndex = 1;
             this.采样周期.Text = "采样周期";
             // 
-            // plcIp
-            // 
-            this.plcIp.Location = new System.Drawing.Point(53, 31);
-            this.plcIp.Name = "plcIp";
-            this.plcIp.Size = new System.Drawing.Size(118, 21);
-            this.plcIp.TabIndex = 4;
-            // 
-            // plcRack
-            // 
-            this.plcRack.Location = new System.Drawing.Point(224, 31);
-            this.plcRack.Name = "plcRack";
-            this.plcRack.Size = new System.Drawing.Size(32, 21);
-            this.plcRack.TabIndex = 5;
-            // 
-            // plcSlot
-            // 
-            this.plcSlot.Location = new System.Drawing.Point(297, 31);
-            this.plcSlot.Name = "plcSlot";
-            this.plcSlot.Size = new System.Drawing.Size(32, 21);
-            this.plcSlot.TabIndex = 6;
-            // 
-            // connectPlc
-            // 
-            this.connectPlc.Location = new System.Drawing.Point(8, 71);
-            this.connectPlc.Name = "connectPlc";
-            this.connectPlc.Size = new System.Drawing.Size(58, 23);
-            this.connectPlc.TabIndex = 7;
-            this.connectPlc.Text = "连接";
-            this.connectPlc.UseVisualStyleBackColor = true;
-            this.connectPlc.Click += new System.EventHandler(this.connectPLC_Click);
-            // 
-            // disconnectPlc
-            // 
-            this.disconnectPlc.Location = new System.Drawing.Point(89, 71);
-            this.disconnectPlc.Name = "disconnectPlc";
-            this.disconnectPlc.Size = new System.Drawing.Size(58, 23);
-            this.disconnectPlc.TabIndex = 8;
-            this.disconnectPlc.Text = "断开";
-            this.disconnectPlc.UseVisualStyleBackColor = true;
-            this.disconnectPlc.Click += new System.EventHandler(this.disconnectPlc_Click);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(152, 35);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(29, 12);
-            this.label9.TabIndex = 4;
-            this.label9.Text = "DB块";
-            // 
-            // recordExcelCycle
-            // 
-            this.recordExcelCycle.Location = new System.Drawing.Point(69, 31);
-            this.recordExcelCycle.Name = "recordExcelCycle";
-            this.recordExcelCycle.Size = new System.Drawing.Size(38, 21);
-            this.recordExcelCycle.TabIndex = 9;
-            // 
-            // dbNum
-            // 
-            this.dbNum.Location = new System.Drawing.Point(187, 31);
-            this.dbNum.Name = "dbNum";
-            this.dbNum.Size = new System.Drawing.Size(38, 21);
-            this.dbNum.TabIndex = 10;
-            // 
-            // dbwNum
-            // 
-            this.dbwNum.Location = new System.Drawing.Point(291, 31);
-            this.dbwNum.Name = "dbwNum";
-            this.dbwNum.Size = new System.Drawing.Size(38, 21);
-            this.dbwNum.TabIndex = 11;
-            // 
-            // startRecordExcel
-            // 
-            this.startRecordExcel.Location = new System.Drawing.Point(8, 71);
-            this.startRecordExcel.Name = "startRecordExcel";
-            this.startRecordExcel.Size = new System.Drawing.Size(58, 23);
-            this.startRecordExcel.TabIndex = 9;
-            this.startRecordExcel.Text = "开始";
-            this.startRecordExcel.UseVisualStyleBackColor = true;
-            this.startRecordExcel.Click += new System.EventHandler(this.startRecordExcel_Click);
-            // 
-            // finishRecordExcel
-            // 
-            this.finishRecordExcel.Location = new System.Drawing.Point(89, 71);
-            this.finishRecordExcel.Name = "finishRecordExcel";
-            this.finishRecordExcel.Size = new System.Drawing.Size(58, 23);
-            this.finishRecordExcel.TabIndex = 12;
-            this.finishRecordExcel.Text = "结束";
-            this.finishRecordExcel.UseVisualStyleBackColor = true;
-            this.finishRecordExcel.Click += new System.EventHandler(this.finishRecordExcel_Click);
-            // 
-            // dbwVaule
-            // 
-            this.dbwVaule.Location = new System.Drawing.Point(304, 9);
-            this.dbwVaule.Name = "dbwVaule";
-            this.dbwVaule.ReadOnly = true;
-            this.dbwVaule.Size = new System.Drawing.Size(38, 21);
-            this.dbwVaule.TabIndex = 13;
-            // 
-            // saveToExcel
-            // 
-            this.saveToExcel.Location = new System.Drawing.Point(165, 71);
-            this.saveToExcel.Name = "saveToExcel";
-            this.saveToExcel.Size = new System.Drawing.Size(103, 23);
-            this.saveToExcel.TabIndex = 14;
-            this.saveToExcel.Text = "存入Excel";
-            this.saveToExcel.UseVisualStyleBackColor = true;
-            this.saveToExcel.Click += new System.EventHandler(this.saveToExcel_Click);
-            // 
             // listInfo
             // 
             this.listInfo.FormattingEnabled = true;
@@ -297,23 +297,44 @@
             this.listInfo.Size = new System.Drawing.Size(250, 208);
             this.listInfo.TabIndex = 7;
             // 
-            // connectStatus
-            // 
-            this.connectStatus.Location = new System.Drawing.Point(271, 71);
-            this.connectStatus.Name = "connectStatus";
-            this.connectStatus.Size = new System.Drawing.Size(58, 23);
-            this.connectStatus.TabIndex = 9;
-            this.connectStatus.UseVisualStyleBackColor = true;
-            // 
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.textBox1);
+            this.groupBox3.Controls.Add(this.button1);
+            this.groupBox3.Location = new System.Drawing.Point(12, 256);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(345, 100);
+            this.groupBox3.TabIndex = 8;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "groupBox3";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(136, 20);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(58, 23);
+            this.button1.TabIndex = 14;
+            this.button1.Text = "创建";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(6, 20);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(124, 21);
+            this.textBox1.TabIndex = 14;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(653, 450);
+            this.ClientSize = new System.Drawing.Size(710, 450);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.listInfo);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label4);
@@ -326,6 +347,8 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -356,10 +379,12 @@
         private System.Windows.Forms.TextBox dbNum;
         private System.Windows.Forms.TextBox recordExcelCycle;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button saveToExcel;
         private System.Windows.Forms.ListBox listInfo;
         private System.Windows.Forms.Button connectStatus;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

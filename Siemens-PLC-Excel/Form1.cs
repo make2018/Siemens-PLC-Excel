@@ -7,10 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Sharp7;
-using System.IO;
-using System.Reflection;
-using Excel = Microsoft.Office.Interop.Excel;
-using Microsoft.Office.Core;
+using System.Data.OleDb;
 
 
 
@@ -20,7 +17,7 @@ namespace Siemens_PLC_Excel
     {
         private S7Client Client;
         private byte[] Buffer = new byte[65536];
-
+      
         public Form1()
         {
             InitializeComponent();
@@ -209,6 +206,7 @@ namespace Siemens_PLC_Excel
         {
             timer1.Interval = System.Convert.ToInt32(recordExcelCycle.Text);
             getDbwValues();
+            writeIntoExcel();
         }
 
         private void finishRecordExcel_Click(object sender, EventArgs e)
@@ -219,133 +217,35 @@ namespace Siemens_PLC_Excel
             startRecordExcel.Enabled = true;
         }
 
-        public static void DTToExcel(string Path, System.Data.DataTable dt)
+        private void button1_Click(object sender, EventArgs e)
         {
-            string strCon = string.Empty;
-            FileInfo file = new FileInfo(Path);
-            string extension = file.Extension;
-            switch (extension)
-            {
-                case ".xls":
-                    strCon = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Path + ";Extended Properties=Excel 8.0;";
-                    //strCon = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Path + ";Extended Properties='Excel 8.0;HDR=Yes;IMEX=0;'";
-                    //strCon = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Path + ";Extended Properties='Excel 8.0;HDR=Yes;IMEX=2;'";
-                    break;
-                case ".xlsx":
-                    //strCon = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Path + ";Extended Properties=Excel 12.0;";
-                    //strCon = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Path + ";Extended Properties='Excel 12.0;HDR=Yes;IMEX=2;'";    //出现错误了
-                    strCon = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Path + ";Extended Properties='Excel 12.0;HDR=Yes;IMEX=0;'";
-                    break;
-                default:
-                    strCon = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Path + ";Extended Properties='Excel 8.0;HDR=Yes;IMEX=0;'";
-                    break;
-            }
-            try
-            {
-                using (System.Data.OleDb.OleDbConnection con = new System.Data.OleDb.OleDbConnection(strCon))
-                {
-                    con.Open();
-                    StringBuilder strSQL = new StringBuilder();
-                    System.Data.OleDb.OleDbCommand cmd;
-                    try
-                    {
-                        cmd = new System.Data.OleDb.OleDbCommand(string.Format("drop table {0}", dt.TableName), con);    //覆盖文件时可能会出现Table 'Sheet1' already exists.所以这里先删除了一下
-                        cmd.ExecuteNonQuery();
-                    }
-                    catch { }
-                    //创建表格字段
-                    strSQL.Append("CREATE TABLE ").Append("[" + dt.TableName + "]");
-                    strSQL.Append("(");
-                    for (int i = 0; i < dt.Columns.Count; i++)
-                    {
-                        strSQL.Append("[" + dt.Columns[i].ColumnName + "] text,");
-                    }
-                    strSQL = strSQL.Remove(strSQL.Length - 1, 1);
-                    strSQL.Append(")");
 
-                    cmd = new System.Data.OleDb.OleDbCommand(strSQL.ToString(), con);
-                    cmd.ExecuteNonQuery();
-                    //添加数据
-                    for (int i = 0; i < dt.Rows.Count; i++)
-                    {
-                        strSQL.Clear();
-                        StringBuilder strvalue = new StringBuilder();
-                        for (int j = 0; j < dt.Columns.Count; j++)
-                        {
-                            strvalue.Append("'" + dt.Rows[i][j].ToString() + "'");
-                            if (j != dt.Columns.Count - 1)
-                            {
-                                strvalue.Append(",");
-                            }
-                            else
-                            {
-                            }
-                        }
-                        cmd.CommandText = strSQL.Append(" insert into [" + dt.TableName + "] values (").Append(strvalue).Append(")").ToString();
-                        cmd.ExecuteNonQuery();
-                    }
-                    con.Close();
-                }
-            }
-            catch { }
+            String sConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;" +"Data Source=c:/"+textBox1.Text+".xls;" +"Extended Properties=Excel 8.0;";
+            OleDbConnection cn = new OleDbConnection(sConnectionString);
+            string sqlCreate = "CREATE TABLE TestSheet ([ID] VarChar,[Username] VarChar,[UserPwd] VarChar)";
+            OleDbCommand cmd = new OleDbCommand(sqlCreate, cn);
+            //创建Excel文件：C:/test.xls
+            cn.Open();
+            //创建TestSheet工作表
+            cmd.ExecuteNonQuery();    
+            //关闭连接
+            cn.Close();
         }
 
-        private void saveToExcel_Click(object sender, EventArgs e)
+        private void writeIntoExcel()
         {
-            string currentPath = Directory.GetCurrentDirectory();
-            WriteExcel(currentPath + "\\results.xlsx");
+            String sConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;" + "Data Source=c:/" + textBox1.Text + ".xls;" + "Extended Properties=Excel 8.0;";
+            OleDbConnection cn = new OleDbConnection(sConnectionString);
+       
+            string sqlCreate = "INSERT INTO TestSheet VALUES("+ textBox1.Text + ","+dbwVaule.Text+",'password')";
 
-            MessageBox.Show("Success!");
-    
+            OleDbCommand cmd = new OleDbCommand(sqlCreate, cn);
+            cn.Open();
+            //创建TestSheet工作表
+            cmd.ExecuteNonQuery();
+            //关闭连接
+            cn.Close();
+
         }
-
-        public void WriteExcel(string filename)
-        {
-            //new an excel object
-            Excel.Application excelApp = new Excel.ApplicationClass();
-            if (excelApp == null)
-            {
-                // if equal null means EXCEL is not installed.
-                MessageBox.Show("Excel is not properly installed!");
-                return;
-            }
-
-            // open a workbook,if not exist, create a new one
-            Excel.Workbook workBook;
-            if (File.Exists(filename))
-            {
-                workBook = excelApp.Workbooks.Open(filename, 0, false, 5, "", "", true, Excel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
-            }
-            else
-            {
-                workBook = excelApp.Workbooks.Add(true);
-            }
-
-            //new a worksheet
-            Excel.Worksheet workSheet = workBook.ActiveSheet as Excel.Worksheet;
-
-            //write data
-            workSheet = (Excel.Worksheet)workBook.Worksheets.get_Item(1);//获得第i个sheet，准备写入
-            workSheet.Cells[1, 3] = "(1,3)Content";
-
-            //set visible the Excel will run in background
-            excelApp.Visible = false;
-            //set false the alerts will not display
-            excelApp.DisplayAlerts = false;
-
-            //workBook.SaveAs(filename, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Excel.XlSaveAsAccessMode.xlNoChange, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value);
-            workBook.SaveAs(filename);
-            workBook.Close(false, Missing.Value, Missing.Value);
-
-            //quit and clean up objects
-            excelApp.Quit();
-            workSheet = null;
-            workBook = null;
-            excelApp = null;
-            GC.Collect();
-        }
-
-
-
     }
 }
