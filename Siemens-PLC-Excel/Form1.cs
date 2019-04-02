@@ -192,7 +192,7 @@ namespace Siemens_PLC_Excel
             listInfo.Items.Add(DateTime.Now.ToString());
             listInfo.Items.Add("从DB" + dbNum.Text + "获取到的DBW" + dbwNum.Text + "的值是" + System.Convert.ToString(S7Int));
             listInfo.Items.Add("---");
-            if (listInfo.Items.Count > 20)
+            if (listInfo.Items.Count > 30)
             {
                 listInfo.Items.Clear();
             }
@@ -217,35 +217,40 @@ namespace Siemens_PLC_Excel
             startRecordExcel.Enabled = true;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
 
-            String sConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;" +"Data Source=c:/"+textBox1.Text+".xls;" +"Extended Properties=Excel 8.0;";
+        private void createExcelFile_Click(object sender, EventArgs e)
+        {
+            String sConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;" + "Data Source=c:/" + excleFileName.Text + ".xls;" + "Extended Properties=Excel 8.0;";
             OleDbConnection cn = new OleDbConnection(sConnectionString);
-            string sqlCreate = "CREATE TABLE TestSheet ([ID] VarChar,[Username] VarChar,[UserPwd] VarChar)";
+            string sqlCreate = "CREATE TABLE TestSheet ([ID] VarChar,[参数值] VarChar)";
             OleDbCommand cmd = new OleDbCommand(sqlCreate, cn);
-            //创建Excel文件：C:/test.xls
+            //创建Excel文件
             cn.Open();
             //创建TestSheet工作表
-            cmd.ExecuteNonQuery();    
+            cmd.ExecuteNonQuery();
+            listInfo.Items.Add("创建--" + excleFileName.Text + ".xls--文件成功");
             //关闭连接
             cn.Close();
+            excleFileName.Enabled = false;
         }
 
         private void writeIntoExcel()
         {
-            String sConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;" + "Data Source=c:/" + textBox1.Text + ".xls;" + "Extended Properties=Excel 8.0;";
+            String sConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;" + "Data Source=c:/" + excleFileName.Text + ".xls;" + "Extended Properties=Excel 8.0;";
             OleDbConnection cn = new OleDbConnection(sConnectionString);
        
-            string sqlCreate = "INSERT INTO TestSheet VALUES("+ textBox1.Text + ","+dbwVaule.Text+",'password')";
+            string sqlCreate = "INSERT INTO TestSheet VALUES("+ excleFileName.Text + ","+dbwVaule.Text+")";
 
             OleDbCommand cmd = new OleDbCommand(sqlCreate, cn);
             cn.Open();
-            //创建TestSheet工作表
+            //插入数据
             cmd.ExecuteNonQuery();
+            listInfo.Items.Add("插入数据" + dbwVaule.Text + "成功");
             //关闭连接
             cn.Close();
 
         }
+
+     
     }
 }
