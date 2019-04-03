@@ -222,7 +222,7 @@ namespace Siemens_PLC_Excel
             int S7Int = S7.GetIntAt(Buffer, Pos);
             dbwVaule.Text = System.Convert.ToString(S7Int);
             listInfo.Items.Add(DateTime.Now.ToString());
-            listInfo.Items.Add(DateTime.Now.ToString() + "从DB" + dbNum.Text + "获取到的DBW" + dbwNum.Text + "的值是" + System.Convert.ToString(S7Int));
+            listInfo.Items.Add("从DB" + dbNum.Text + "获取到的DBW" + dbwNum.Text + "的值是" + System.Convert.ToString(S7Int));
             if (listInfo.Items.Count > 30)
             {
                 listInfo.Items.Clear();
