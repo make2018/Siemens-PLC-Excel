@@ -87,6 +87,7 @@ namespace Siemens_PLC_Excel
 
             if (File.Exists("c:\\"+excleFileName.Text + ".xls ")) {
                 listInfo.Items.Add(excleFileName.Text + ".xls "+"文件已存在，请重新创建文件");
+                excleFileName.Enabled = true;
             }
             else
             {
@@ -105,6 +106,7 @@ namespace Siemens_PLC_Excel
                 cn.Close();
                 //文件创建后，不允许修改文件名
                 excleFileName.Enabled = false;
+                createExcelFile.Enabled = false;
             }
             
            
@@ -136,6 +138,9 @@ namespace Siemens_PLC_Excel
                 timer1.Start();
                 startRecordExcel.Enabled = false;
                 finishRecordExcel.Enabled = true;
+                recordExcelCycle.Enabled = false;
+                dbNum.Enabled = false;
+                dbwNum.Enabled = false;
             }
         }
         private void ReadDbw()
@@ -248,6 +253,9 @@ namespace Siemens_PLC_Excel
             listInfo.Items.Add("数据采集结束");
             finishRecordExcel.Enabled = false;
             startRecordExcel.Enabled = true;
+            recordExcelCycle.Enabled = true;
+            dbNum.Enabled = true;
+            dbwNum.Enabled = true;
         }
         private void writeIntoExcel()
         {

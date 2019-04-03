@@ -39,6 +39,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.xuLie = new System.Windows.Forms.TextBox();
             this.dbwVaule = new System.Windows.Forms.TextBox();
             this.finishRecordExcel = new System.Windows.Forms.Button();
             this.startRecordExcel = new System.Windows.Forms.Button();
@@ -56,7 +57,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.excleFileName = new System.Windows.Forms.TextBox();
             this.createExcelFile = new System.Windows.Forms.Button();
-            this.xuLie = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -167,8 +167,18 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "读取DBW并存入Excel文件中";
             // 
+            // xuLie
+            // 
+            this.xuLie.Enabled = false;
+            this.xuLie.Location = new System.Drawing.Point(210, 9);
+            this.xuLie.Name = "xuLie";
+            this.xuLie.ReadOnly = true;
+            this.xuLie.Size = new System.Drawing.Size(88, 21);
+            this.xuLie.TabIndex = 14;
+            // 
             // dbwVaule
             // 
+            this.dbwVaule.Enabled = false;
             this.dbwVaule.Location = new System.Drawing.Point(304, 9);
             this.dbwVaule.Name = "dbwVaule";
             this.dbwVaule.ReadOnly = true;
@@ -312,15 +322,6 @@
             this.createExcelFile.Text = "创建";
             this.createExcelFile.UseVisualStyleBackColor = true;
             this.createExcelFile.Click += new System.EventHandler(this.createExcelFile_Click);
-            // 
-            // xuLie
-            // 
-            this.xuLie.Enabled = false;
-            this.xuLie.Location = new System.Drawing.Point(210, 9);
-            this.xuLie.Name = "xuLie";
-            this.xuLie.ReadOnly = true;
-            this.xuLie.Size = new System.Drawing.Size(88, 21);
-            this.xuLie.TabIndex = 14;
             // 
             // Form1
             // 
