@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Sharp7;
+using System.IO;
 using System.Data.OleDb;
 
 
@@ -82,21 +83,31 @@ namespace Siemens_PLC_Excel
         }
         private void createExcelFile_Click(object sender, EventArgs e)
         {
-            //连接字符串，其中文件名通过获取TextBox中的内容
-            String sConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;" + "Data Source=c:/" + excleFileName.Text + ".xls;" + "Extended Properties=Excel 8.0;";
-            //建立连接
-            OleDbConnection cn = new OleDbConnection(sConnectionString);
-            string sqlCreate = "CREATE TABLE TestSheet ([ID] VarChar,[参数值] VarChar)";
-            OleDbCommand cmd = new OleDbCommand(sqlCreate, cn);
-            //创建Excel文件
-            cn.Open();
-            //创建TestSheet工作表  
-            cmd.ExecuteNonQuery();
-            listInfo.Items.Add("创建--" + excleFileName.Text + ".xls--文件成功");
-            //关闭连接
-            cn.Close();
-            //文件创建后，不允许修改文件名
-            excleFileName.Enabled = false;
+            //判断文件是否存在，如果存在，在消息框中提示文件已创建
+
+            if (File.Exists("c:\\"+excleFileName.Text + ".xls ")) {
+                listInfo.Items.Add(excleFileName.Text + ".xls "+"文件已存在，请重新创建文件");
+            }
+            else
+            {
+                //连接字符串，其中文件名通过获取TextBox中的内容
+                String sConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;" + "Data Source=c:/" + excleFileName.Text + ".xls;" + "Extended Properties=Excel 8.0;";
+                //建立连接
+                OleDbConnection cn = new OleDbConnection(sConnectionString);
+                string sqlCreate = "CREATE TABLE TestSheet ([ID] VarChar,[参数值] VarChar)";
+                OleDbCommand cmd = new OleDbCommand(sqlCreate, cn);
+                //创建Excel文件
+                cn.Open();
+                //创建TestSheet工作表  
+                cmd.ExecuteNonQuery();
+                listInfo.Items.Add("创建--" + excleFileName.Text + ".xls--文件成功");
+                //关闭连接
+                cn.Close();
+                //文件创建后，不允许修改文件名
+                excleFileName.Enabled = false;
+            }
+            
+           
         }
         private void startRecordExcel_Click(object sender, EventArgs e)
         {
@@ -114,6 +125,11 @@ namespace Siemens_PLC_Excel
             {
                 listInfo.Items.Add("DBW字段不能为空!");
                 dbwNum.Focus();
+            }
+            if (string.IsNullOrEmpty(excleFileName.Text))
+            {
+                listInfo.Items.Add("请输入文件名或者选择文件!");
+                excleFileName.Focus();
             }
             else
             {
