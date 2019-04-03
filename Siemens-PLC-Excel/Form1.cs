@@ -17,6 +17,8 @@ namespace Siemens_PLC_Excel
     {
         private S7Client Client;
         private byte[] Buffer = new byte[65536];
+        int i = 1;
+        
       
         public Form1()
         {
@@ -26,6 +28,7 @@ namespace Siemens_PLC_Excel
                 this.Text = this.Text + " - Running 32 bit Code";
             else
                 this.Text = this.Text + " - Running 64 bit Code";
+            
         }
 
         private void connectPLC_Click(object sender, EventArgs e)
@@ -203,8 +206,7 @@ namespace Siemens_PLC_Excel
             int S7Int = S7.GetIntAt(Buffer, Pos);
             dbwVaule.Text = System.Convert.ToString(S7Int);
             listInfo.Items.Add(DateTime.Now.ToString());
-            listInfo.Items.Add("从DB" + dbNum.Text + "获取到的DBW" + dbwNum.Text + "的值是" + System.Convert.ToString(S7Int));
-            listInfo.Items.Add("---");
+            listInfo.Items.Add(DateTime.Now.ToString() + "从DB" + dbNum.Text + "获取到的DBW" + dbwNum.Text + "的值是" + System.Convert.ToString(S7Int));
             if (listInfo.Items.Count > 30)
             {
                 listInfo.Items.Clear();
@@ -218,6 +220,9 @@ namespace Siemens_PLC_Excel
         private void timer1_Tick(object sender, EventArgs e)
         {
             timer1.Interval = System.Convert.ToInt32(recordExcelCycle.Text);
+         
+            xuLie.Text=i.ToString();
+            i++;
             getDbwValues();
             writeIntoExcel();
         }
@@ -232,17 +237,15 @@ namespace Siemens_PLC_Excel
         {
             String sConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;" + "Data Source=c:/" + excleFileName.Text + ".xls;" + "Extended Properties=Excel 8.0;";
             OleDbConnection cn = new OleDbConnection(sConnectionString);     
-            string sqlCreate = "INSERT INTO TestSheet VALUES(" + dbwVaule.Text + "," + dbwVaule.Text+")";
+            string sqlCreate = "INSERT INTO TestSheet VALUES(" + xuLie.Text + "," + dbwVaule.Text+")";
             OleDbCommand cmd = new OleDbCommand(sqlCreate, cn);
             cn.Open();
             //插入数据
             cmd.ExecuteNonQuery();
-            listInfo.Items.Add("插入数据" + dbwVaule.Text + "成功");
+            listInfo.Items.Add(DateTime.Now.ToString()+"插入数据" + dbwVaule.Text + "成功");
             //关闭连接
             cn.Close();
 
         }
-
-     
     }
 }

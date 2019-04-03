@@ -52,10 +52,11 @@
             this.listInfo = new System.Windows.Forms.ListBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.createExcelFile = new System.Windows.Forms.Button();
-            this.excleFileName = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.excleFileName = new System.Windows.Forms.TextBox();
+            this.createExcelFile = new System.Windows.Forms.Button();
+            this.xuLie = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -148,6 +149,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.xuLie);
             this.groupBox2.Controls.Add(this.dbwVaule);
             this.groupBox2.Controls.Add(this.finishRecordExcel);
             this.groupBox2.Controls.Add(this.startRecordExcel);
@@ -276,22 +278,14 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "创建Excel文件";
             // 
-            // createExcelFile
+            // label11
             // 
-            this.createExcelFile.Location = new System.Drawing.Point(281, 28);
-            this.createExcelFile.Name = "createExcelFile";
-            this.createExcelFile.Size = new System.Drawing.Size(58, 23);
-            this.createExcelFile.TabIndex = 14;
-            this.createExcelFile.Text = "创建";
-            this.createExcelFile.UseVisualStyleBackColor = true;
-            this.createExcelFile.Click += new System.EventHandler(this.createExcelFile_Click);
-            // 
-            // excleFileName
-            // 
-            this.excleFileName.Location = new System.Drawing.Point(102, 28);
-            this.excleFileName.Name = "excleFileName";
-            this.excleFileName.Size = new System.Drawing.Size(173, 21);
-            this.excleFileName.TabIndex = 14;
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(19, 68);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(227, 12);
+            this.label11.TabIndex = 15;
+            this.label11.Text = "文件默认保存在C盘根目录 excel版本2003";
             // 
             // label10
             // 
@@ -302,14 +296,31 @@
             this.label10.TabIndex = 14;
             this.label10.Text = "请输入文件名";
             // 
-            // label11
+            // excleFileName
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(19, 68);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(227, 12);
-            this.label11.TabIndex = 15;
-            this.label11.Text = "文件默认保存在C盘根目录 excel版本2003";
+            this.excleFileName.Location = new System.Drawing.Point(102, 28);
+            this.excleFileName.Name = "excleFileName";
+            this.excleFileName.Size = new System.Drawing.Size(173, 21);
+            this.excleFileName.TabIndex = 14;
+            // 
+            // createExcelFile
+            // 
+            this.createExcelFile.Location = new System.Drawing.Point(281, 28);
+            this.createExcelFile.Name = "createExcelFile";
+            this.createExcelFile.Size = new System.Drawing.Size(58, 23);
+            this.createExcelFile.TabIndex = 14;
+            this.createExcelFile.Text = "创建";
+            this.createExcelFile.UseVisualStyleBackColor = true;
+            this.createExcelFile.Click += new System.EventHandler(this.createExcelFile_Click);
+            // 
+            // xuLie
+            // 
+            this.xuLie.Enabled = false;
+            this.xuLie.Location = new System.Drawing.Point(210, 9);
+            this.xuLie.Name = "xuLie";
+            this.xuLie.ReadOnly = true;
+            this.xuLie.Size = new System.Drawing.Size(88, 21);
+            this.xuLie.TabIndex = 14;
             // 
             // Form1
             // 
@@ -361,6 +372,7 @@
         private System.Windows.Forms.TextBox excleFileName;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox xuLie;
     }
 }
 
