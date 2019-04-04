@@ -83,6 +83,13 @@ namespace Siemens_PLC_Excel
         }
         private void createExcelFile_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(excleFileName.Text))
+            {
+                listInfo.Items.Add("请输入文件名!");
+                excleFileName.Focus();
+            }
+
+
             //判断文件是否存在，如果存在，在消息框中提示文件已创建
 
             if (File.Exists("c:\\"+excleFileName.Text + ".xls ")) {
